@@ -1,0 +1,24 @@
+flowchart LR
+  subgraph Field["Field (existing city assets)"]
+    CCTV["City CCTV / ICCC feeds"]
+    EDGE["Edge device<br/>(Raspberry Pi 5 / Jetson)<br/>slot detection + dwell tracking<br/>face & plate blur"]
+  end
+  subgraph Cloud["ParkPulse service (FastAPI)"]
+    API["Live occupancy API"]
+    FC["Forecaster<br/>hour, weekday, festival,<br/>pilgrim-season signals"]
+    AL["No-parking alert engine"]
+    DB[("Time-series store")]
+  end
+  subgraph People["Who uses it"]
+    WA["Citizens & pilgrims<br/>WhatsApp bot<br/>Hindi · Dogri · Urdu · English"]
+    WEB["Web map"]
+    TP["Traffic police<br/>alert dashboard"]
+    JMC["JMC / JSCL planners<br/>analytics dashboard"]
+  end
+  CCTV --> EDGE -->|"counts only, no raw video"| API
+  API --> DB --> FC
+  EDGE --> AL --> TP
+  API --> WA
+  API --> WEB
+  FC --> JMC
+  AL --> JMC

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ParkPulse City Dashboard</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">Park<span>Pulse</span></span><span class="brand-place">Jammu · JMC / JSCL view</span></div>
+    <span class="demo-flag">Prototype on simulated data</span>
+    <nav aria-label="Views">
+      <a href="/">Find parking</a>
+      <a href="/admin" aria-current="page">City dashboard</a>
+    </nav>
+  </header>
+
+  <main class="admin">
+    <section class="status-line" aria-live="polite">
+      <h1>City parking at a glance</h1>
+      <div class="stat"><b id="k-free">–</b><span>bays free across 6 zones</span></div>
+      <div class="stat"><b id="k-occ">–</b><span>citywide occupancy</span></div>
+      <div class="stat alert"><b id="k-alerts">–</b><span>open no-parking alerts</span></div>
+      <div class="stat"><b id="k-full">–</b><span>zones full</span></div>
+      <div class="stat"><b id="k-time">–</b><span>last update</span></div>
+    </section>
+
+    <section class="card span-8">
+      <h2>Next 6 hours</h2>
+      <p class="sub">Forecast occupancy for the selected zone, using hour, weekday, festival and pilgrim-season signals.</p>
+      <label for="zone-select" style="font-size:13px;color:var(--ink-soft)">Zone</label>
+      <select id="zone-select"></select>
+      <span id="model-q" class="note" style="margin-left:10px"></span>
+      <div class="chart-box"><canvas id="fc-chart" aria-label="Forecast chart"></canvas></div>
+    </section>
+
+    <section class="card span-4 camera">
+      <h2>Camera check</h2>
+      <p class="sub">Slot detection on a demo frame. Plates are blurred before anything is stored.</p>
+      <img id="cam" src="/api/vision/demo.png?occupancy=0.5&seed=6" alt="Parking lot frame with free slots outlined in green and taken slots in red">
+      <p class="note">Synthetic frame. A pilot reads the city's existing CCTV.</p>
+    </section>
+
+    <section class="card span-12">
+      <h2>When each zone fills up</h2>
+      <p class="sub">Average occupancy by hour over the last 8 weeks. Darker means fuller.</p>
+      <div class="heat" id="heat"></div>
+    </section>
+
+    <section class="card span-8">
+      <h2>No-parking alerts</h2>
+      <p class="sub">Vehicles left in no-parking zones past the 5-minute limit, sent to traffic police with location.</p>
+      <table>
+        <thead><tr><th>Time</th><th>Location</th><th>Vehicle</th><th>Parked</th><th>Status</th></tr></thead>
+        <tbody id="alerts"></tbody>
+      </table>
+    </section>
+
+    <section class="card span-4">
+      <h2>Hotspots, last 14 days</h2>
+      <p class="sub">Where enforcement time pays off most.</p>
+      <div id="hotspots"></div>
+      <h2 style="margin-top:18px">Fees likely uncollected</h2>
+      <p class="sub">Estimated for the past 7 days.</p>
+      <div class="money" id="leak">–</div>
+      <p class="note" id="leak-note"></p>
+    </section>
+  </main>
+
+  <script src="/static/vendor/chartjs/chart.umd.js"></script>
+  <script src="/static/common.js"></script>
+  <script src="/static/admin.js"></script>
+</body>
+</html>

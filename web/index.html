@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ParkPulse Jammu</title>
+  <link rel="stylesheet" href="/static/vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">Park<span>Pulse</span></span><span class="brand-place">Jammu</span></div>
+    <span class="demo-flag" title="Occupancy is simulated until camera feeds are connected">Prototype on simulated data</span>
+    <nav aria-label="Views">
+      <a href="/" aria-current="page">Find parking</a>
+      <a href="/admin">City dashboard</a>
+    </nav>
+  </header>
+
+  <main class="citizen">
+    <div id="map" role="region" aria-label="Map of parking zones"></div>
+
+    <aside class="rail">
+      <div class="rail-head">
+        <h1>Free parking right now</h1>
+        <p id="updated">Loading live counts…</p>
+      </div>
+      <ul class="zones" id="zones" aria-live="polite"></ul>
+
+      <section class="chat" aria-label="WhatsApp bot preview">
+        <div class="chat-head"><strong>ParkPulse on WhatsApp</strong><span>Hindi · Dogri · Urdu · English</span></div>
+        <div class="chat-log" id="chat-log"></div>
+        <div class="chips" id="chips">
+          <button type="button" data-q="Parking near Raghunath Bazaar">Raghunath Bazaar</button>
+          <button type="button" data-q="गांधी नगर के पास पार्किंग">गांधी नगर</button>
+          <button type="button" data-q="بس اسٹینڈ کے قریب پارکنگ">بس اسٹینڈ</button>
+          <button type="button" data-loc="32.7280,74.8620">Share my location</button>
+          <button type="button" data-q="2">Reply "2"</button>
+        </div>
+        <form class="chat-form" id="chat-form">
+          <label for="chat-input" class="visually-hidden" style="position:absolute;left:-9999px">Message</label>
+          <input id="chat-input" autocomplete="off" placeholder="Type an area, e.g. Bahu Plaza">
+          <button type="submit">Send</button>
+        </form>
+      </section>
+    </aside>
+  </main>
+
+  <script src="/static/vendor/leaflet/leaflet.js"></script>
+  <script src="/static/common.js"></script>
+  <script src="/static/citizen.js"></script>
+</body>
+</html>
